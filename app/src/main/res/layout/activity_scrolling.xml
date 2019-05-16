@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ScrollingActivity">
+
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_height="@dimen/app_bar_height"
+            android:layout_width="match_parent"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <TextView
+                    app:layout_scrollFlags="scroll"
+                    android:gravity="center"
+                    android:background="@color/cardview_dark_background"
+                    android:text="测试内容"
+                    android:textColor="#ffffff"
+                    android:textSize="25sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/app_bar_height"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+            android:overScrollMode="never"
+            android:id="@+id/scroll"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ScrollingActivity">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@string/large_text"/>
+
+    </android.support.v4.widget.NestedScrollView>
+    <android.support.v4.widget.NestedScrollView
+            android:background="#ccdddd"
+            app:layout_behavior=".BottomFlowBehavior"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            tools:context=".ScrollingActivity">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@string/large_text"/>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
