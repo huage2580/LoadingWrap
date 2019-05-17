@@ -4,6 +4,7 @@ import android.widget.TextView
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v4.widget.CircularProgressDrawable
@@ -35,7 +36,7 @@ object LoadingWrap{
             val sizeInt = (centerRadius + strokeWidth).toInt() * 2
             setBounds(0, 0, sizeInt, sizeInt)
         }
-        val drawableSpan = DrawableSpan(progressDrawable,20,20,true)
+        val drawableSpan = DrawableSpan(progressDrawable,10,0,true)
         // create a SpannableString
         val spannableString =
             if (showText)
@@ -68,7 +69,24 @@ object LoadingWrap{
      * change status to String style
      */
     fun toStringStatus(target: TextView){
+        //释放资源，避免内存泄漏
+        releaseDrawable(target)
         target.text = target.text.toString().trimEnd()
+    }
+
+    private fun releaseDrawable(target: TextView) {
+        val span = target.text
+        if (span is SpannableString){
+            val drawableArray = span.getSpans(0,span.length,DrawableSpan::class.java)
+            drawableArray.forEach {
+                it.drawable.apply {
+                    if(this is Animatable){
+                        stop()
+                    }
+                    callback = null
+                }
+            }
+        }
     }
 
     //loading drawable size
